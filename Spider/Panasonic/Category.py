@@ -1,0 +1,15 @@
+# second1-third1-forth1-fifth1-sixth1
+First_Capacitors = 'https://industrial.panasonic.cn/ea/products/capacitors'
+# second1-third1-forth1-sixth1
+First_sensors = 'https://industrial.panasonic.cn/ea/products/sensors'
+First_batteries = 'https://industrial.panasonic.cn/ea/products/batteries'
+First_materials = 'https://industrial.panasonic.cn/ea/products/electronic-materials'
+First_resistors = 'https://industrial.panasonic.cn/ea/products/resistors'
+First_solutions = 'https://industrial.panasonic.cn/ea/products/thermal-solutions'
+First_protection = 'https://industrial.panasonic.cn/ea/products/emc-circuit-protection'
+First_welding = 'https://industrial.panasonic.cn/ea/products/fa-welding'
+First_inductors = 'https://industrial.panasonic.cn/ea/products/inductors'
+First_devices = 'https://industrial.panasonic.cn/ea/products/input-devices'
+First_media = 'https://industrial.panasonic.cn/ea/products/industrial-devices-media'
+First_compressors = 'https://industrial.panasonic.cn/ea/products/motors-compressors'
+First_module = 'https://industrial.panasonic.cn/ea/products/custom-module'

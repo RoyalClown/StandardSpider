@@ -7,7 +7,7 @@
     @author:        RoyalClown
     @date:          2016/11/25
 """
-from DataAnalyse.dbDataGet.CCT2016112200000008_data import DataProcessing
+from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
 from Spider.Rohm.StandardVoltageDetectors.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload

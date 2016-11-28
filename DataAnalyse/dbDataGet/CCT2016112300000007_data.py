@@ -347,8 +347,7 @@ class DataProcessing:
 
                 else:
                     pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno, 'null')
-                    property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id,
-                                                                 base_property_name, '')
+                    # property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id, base_property_name, '')
 
                 properties_json.append(property_json)
             str_properties_json = str(properties_json).replace("'", "\"")

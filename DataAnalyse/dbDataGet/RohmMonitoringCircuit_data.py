@@ -102,11 +102,11 @@ class DataProcessing:
 
                         """针对参数合并为范围值"""
                         # 获取最大值
-                        if aim_property_name == "Operating Temperature (Min.)[°C]":
+                        if crawl_property_name == "Operating Temperature (Min.)[°C]":
                             temperature_min = crawl_property_value
                             continue
                         # 获取最小值并储存为范围值
-                        elif aim_property_name == 'Operating Temperature (Max.)[°C]':
+                        elif crawl_property_name == 'Operating Temperature (Max.)[°C]':
                             pv_min = temperature_min
                             pv_max = crawl_property_value
                             save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
@@ -119,6 +119,7 @@ class DataProcessing:
                                                                          base_property_name, save_value,
                                                                          min=pv_min, max=pv_max,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
                         if crawl_property_name == "Circuit Current (ON) [µA]":
@@ -126,8 +127,8 @@ class DataProcessing:
                             continue
                         # 获取最小值并储存为范围值
                         elif crawl_property_name == "Circuit Current (OFF) [µA]":
-                            pv_min = current_min
-                            pv_max = crawl_property_value
+                            pv_min = current_min.split("(")[0]
+                            pv_max = crawl_property_value.split("(")[0]
                             save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                             pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
                                                                 "'" + save_value + "'", pv_max=pv_max,
@@ -138,6 +139,7 @@ class DataProcessing:
                                                                          base_property_name, save_value,
                                                                          min=pv_min, max=pv_max,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
                         """针对参数合并为单个值"""
@@ -155,6 +157,7 @@ class DataProcessing:
                                                                          base_property_id,
                                                                          base_property_name, save_value,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
                         """针对参数值处理"""
@@ -171,6 +174,7 @@ class DataProcessing:
                                                                          base_property_name, save_value,
                                                                          numberic=pv_numberic,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
                         if aim_property_name == "PS_Sensitivity":
@@ -198,6 +202,7 @@ class DataProcessing:
                                                                              base_property_id,
                                                                              base_property_name, save_value,
                                                                              unit=pv_unit)
+                            properties_json.append(property_json)
                             break
 
                         """针对参数分割"""
@@ -224,6 +229,7 @@ class DataProcessing:
                                                                          base_property_name, save_value,
                                                                          numberic=pv_numberic,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
                         """ 这里还需要对不同属性值进行处理 """
@@ -286,7 +292,7 @@ class DataProcessing:
                                                                                      base_property_name,
                                                                                      crawl_property_value,
                                                                                      unit=base_property_unit)
-
+                            properties_json.append(property_json)
                             break
                         if base_property_type == 'N':
                             # 尝试将value转化为int，存入numberic值中
@@ -406,6 +412,7 @@ class DataProcessing:
                                                                                          base_property_name,
                                                                                          crawl_property_value,
                                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
                         else:
                             pv_id = spcap_data.save_to_property(base_property_id, component_id,
@@ -418,15 +425,13 @@ class DataProcessing:
                                                                          base_property_name,
                                                                          crawl_property_value,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
-
 
                 else:
                     pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno, 'null')
-                    property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id,
-                                                                 base_property_name, '')
+                    # property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id, base_property_name, '')
 
-                properties_json.append(property_json)
 
             spcap_data.update_crawl_uuid(uuid, task_id, crawl_component_code, cc_flag=cc_flag, cc_modify=cc_modify)
 

@@ -267,6 +267,7 @@ class DataProcessing:
                                                                              base_property_name, save_value,
                                                                              min=pv_min, max=pv_max,
                                                                              unit=base_property_unit)
+                                properties_json.append(property_json)
                                 break
                             else:
                                 continue
@@ -287,6 +288,7 @@ class DataProcessing:
                                                                              base_property_name, save_value,
                                                                              min=pv_min, max=pv_max,
                                                                              unit=base_property_unit)
+                                properties_json.append(property_json)
                                 break
                             else:
                                 continue
@@ -352,7 +354,7 @@ class DataProcessing:
                                                                                      base_property_name,
                                                                                      crawl_property_value,
                                                                                      unit=base_property_unit)
-
+                            properties_json.append(property_json)
                             break
                         if base_property_type == 'N':
                             # 尝试将value转化为int，存入numberic值中
@@ -472,6 +474,7 @@ class DataProcessing:
                                                                                          base_property_name,
                                                                                          crawl_property_value,
                                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
                         else:
                             pv_id = spcap_data.save_to_property(base_property_id, component_id,
@@ -484,16 +487,16 @@ class DataProcessing:
                                                                          base_property_name,
                                                                          crawl_property_value,
                                                                          unit=base_property_unit)
+                            properties_json.append(property_json)
                             break
 
 
                 else:
                     pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno, 'null')
-                    property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id,
-                                                                 base_property_name, '')
+                    # property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id, base_property_name, '')
 
-                properties_json.append(property_json)
-            spcap_data.update_crawl_uuid(uuid, task_id, crawl_component_code, cc_flag=insert_or_update, cc_modify=cc_modify)
+            spcap_data.update_crawl_uuid(uuid, task_id, crawl_component_code, cc_flag=insert_or_update,
+                                         cc_modify=cc_modify)
             str_properties_json = str(properties_json).replace("'", "\"")
             spcap_data.save_to_version(crawl_component_code, crawl_component_attach, crawl_component_img, unit, uuid,
                                        str_properties_json, b2c_brand_json, b2c_kind_json, cmp_version)

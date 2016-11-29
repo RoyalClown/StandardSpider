@@ -1,7 +1,7 @@
 """
     @description:
     @author:        RoyalClown
-    @date:          2016/11/25
+    @date:          2016/11/28
 """
 import re
 
@@ -18,13 +18,13 @@ class ProductList:
         pass
 
     def get_urls_pdfs(self):
-        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\StandardVoltageDetectors\htmlcode.html", "r",
+        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\MOSFET\htmlcode.html", "r",
                   encoding="utf-8") as f:
             content = f.read()
         bs_content = BeautifulSoup(content, "html.parser")
         all = bs_content.find_all(name="td", attrs={"align": "left", "class": "part-name PartNumber"})
         pdfs_urls = []
-        for one in all:
+        for one in all[320:]:
             tag_url_pdf = one.find_all(name="div")
             url_code = tag_url_pdf[0].a
             code = url_code.text
@@ -61,7 +61,7 @@ class Detail:
     def   get_component(self):
         url = self.url
         code = self.code
-        kiname = "串行EEPROM"
+        kiname = "MOSFET"
         attach = self.pdf
         rough_img = re.search(r'productThumnailImageLogo="(http://rohmfs\.rohm\.com.*?\.jpg)"', self.content)
         try:
@@ -100,3 +100,9 @@ if __name__ == "__main__":
     productlist = ProductList()
     productlist.get_urls_pdfs()
 
+"""
+    Who is still awake during the darkness.
+    Dark mood with the cloak and mask.
+    The darkness of night is not darkest.
+
+"""

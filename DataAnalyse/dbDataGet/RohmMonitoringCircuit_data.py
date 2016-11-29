@@ -432,7 +432,6 @@ class DataProcessing:
                     pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno, 'null')
                     # property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id, base_property_name, '')
 
-
             spcap_data.update_crawl_uuid(uuid, task_id, crawl_component_code, cc_flag=cc_flag, cc_modify=cc_modify)
 
             str_properties_json = str(properties_json).replace("'", "\"")

@@ -1,7 +1,7 @@
 """
     @description:
     @author:        RoyalClown
-    @date:          2016/11/25
+    @date:          2016/11/28
 """
 import re
 
@@ -18,7 +18,7 @@ class ProductList:
         pass
 
     def get_urls_pdfs(self):
-        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\StandardVoltageDetectors\htmlcode.html", "r",
+        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\SVoltageDetectorWithFixedDelayTime\htmlcode.html", "r",
                   encoding="utf-8") as f:
             content = f.read()
         bs_content = BeautifulSoup(content, "html.parser")
@@ -61,7 +61,7 @@ class Detail:
     def   get_component(self):
         url = self.url
         code = self.code
-        kiname = "串行EEPROM"
+        kiname = "延迟时间固定型电压检测器"
         attach = self.pdf
         rough_img = re.search(r'productThumnailImageLogo="(http://rohmfs\.rohm\.com.*?\.jpg)"', self.content)
         try:
@@ -100,3 +100,17 @@ if __name__ == "__main__":
     productlist = ProductList()
     productlist.get_urls_pdfs()
 
+"""
+    Who is still awake during the darkness.
+    Dark mood with the cloak and mask.
+    The darkness of night is not the darkest.
+    But we cannot find the baseline of the greedy.
+
+    Humble street is under the feet.
+    I stand on the skylines of the city alone.
+    Don't suspect me of the evil or kind.
+    I am just a mammal desiring to fly.
+
+    The river between evil and kindness.
+    It's not about an uncrossable opposite aspect.
+"""

@@ -1,24 +1,24 @@
 """
     @description:   来源:罗姆官网
                     商城品牌:罗姆半导体
-                    目标类目:标准电压检测器
-                    商城类目:监控电路
-                    来源网址:http://www.rohm.com.cn/web/china/search/parametric/-/search/Standard%20Voltage%20Detectors
+                    目标类目:MOSFET
+                    商城类目:金属氧化物半导体场效应管-MOSFET
+                    来源网址:http://www.rohm.com.cn/web/china/search/parametric/-/search/MOSFETs
     @author:        RoyalClown
-    @date:          2016/11/25
+    @date:          2016/11/28
 """
 from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
-from Spider.Rohm.StandardVoltageDetectors.saveAndGo import all_go
+from Spider.Rohm.MOSFET.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016112200000008:
+class CCT2016112300000003:
     def __init__(self):
-        self.url = "http://www.rohm.com.cn/web/china/search/parametric/-/search/Multi-Output%20LDO%20Regulators"
-        self.task_code = "CCT2016112200000008"
+        self.url = "http://www.rohm.com.cn/web/china/search/parametric/-/search/MOSFETs"
+        self.task_code = "CCT2016112300000003"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -31,7 +31,7 @@ class CCT2016112200000008:
         return task_id
 
     def go(self):
-        step = [3]
+        step = [1]
         if 1 in step:
             print("开始进行爬取")
             all_go(task_code=self.task_code, task_id=self.task_id)
@@ -49,6 +49,5 @@ class CCT2016112200000008:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016112200000008()
+    taskn = CCT2016112300000003()
     taskn.go()
-正在重新修改对应关系

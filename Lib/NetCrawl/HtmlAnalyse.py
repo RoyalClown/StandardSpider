@@ -14,7 +14,7 @@ class HtmlAnalyse:
         self._session = requests.Session()
         self._session.headers.update(Default_Header)
         if is_proxy:
-            proxy_ip = {'http': '223.10.236.242:8998'}
+            proxy_ip = {'http': '112.192.25.140:8118'}
             self._session.proxies.update(proxy_ip)
         if is_cookie:
             with open("I:\\PythonPrj\\zhihu\\test.json") as f:

@@ -7,7 +7,7 @@
     @author:        RoyalClown
     @date:          2016/11/29
 """
-from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
+from DataAnalyse.dbDataGet.ST_data import DataProcessing
 from Spider.ST.Gates.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
@@ -31,8 +31,7 @@ class CCT2016112900000007:
         return task_id
 
     def go(self):
-        step = [1]
-        正在进行第二步
+        step = [3]
         if 1 in step:
             print("开始进行爬取")
             all_go(task_code=self.task_code, task_id=self.task_id)

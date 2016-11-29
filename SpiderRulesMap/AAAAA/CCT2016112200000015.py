@@ -7,7 +7,7 @@
     @author:        RoyalClown
     @date:          2016/11/28
 """
-from Spider.Rohm.StandardVoltageDetectors.saveAndGo import all_go
+from Spider.Rohm.VoltageDetectorWithFixedDelayTime.saveAndGo import all_go
 
 from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
 from DataAnalyse.file_download.img_download import ImgDownload
@@ -31,7 +31,8 @@ class CCT2016112200000015:
         return task_id
 
     def go(self):
-        step = [3]
+        step = [1]
+        ：正在进行第一步
         if 1 in step:
             print("开始进行爬取")
             all_go(task_code=self.task_code, task_id=self.task_id)

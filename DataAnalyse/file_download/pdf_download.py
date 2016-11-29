@@ -86,4 +86,12 @@ if __name__ == "__main__":
     # pdfdownload.upload("I:\\PythonPrj\\StandardSpider\\tmp\\0.40682021963558823.pdf", "https://industrial.panasonic.cn/cdbs/www-data/pdf/ABE0000/ABE0000C81.pdf")
     # pdfdownload.go()
     # pdfdownload.download("http://rohmfs.rohm.com/en/products/databook/datasheet/ic/memory/eeprom/br24g08-3a-e.pdf")
+
+
     pdfdownload.thread_go()
+
+    # while True:
+    #     try:
+    #         pdfdownload.thread_go()
+    #     except:
+    #         continue

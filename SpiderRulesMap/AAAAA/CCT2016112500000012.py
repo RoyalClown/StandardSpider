@@ -1,24 +1,24 @@
 """
-    @description:   来源:罗姆官网
-                    商城品牌:罗姆半导体
-                    目标类目:MOSFET
-                    商城类目:金属氧化物半导体场效应管-MOSFET
-                    来源网址:http://www.rohm.com.cn/web/china/search/parametric/-/search/MOSFETs
+    @description:   来源:ST官网
+                    商城品牌:意法半导体
+                    目标类目:Standard Comparators
+                    商城类目:模拟比较器
+                    来源网址:http://www.st.com/en/amplifiers-and-comparators/standard-comparators.html?querycriteria=productId=SS1089
     @author:        RoyalClown
-    @date:          2016/11/28
+    @date:          2016/11/29
 """
-from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
-from Spider.Rohm.MOSFET.saveAndGo import all_go
+from DataAnalyse.dbDataGet.ST_data import DataProcessing
+from Spider.ST.StandardComparators.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016112300000003:
+class CCT2016112500000012:
     def __init__(self):
-        self.url = "http://www.rohm.com.cn/web/china/search/parametric/-/search/MOSFETs"
-        self.task_code = "CCT2016112300000003"
+        self.url = "http://www.st.com/en/amplifiers-and-comparators/standard-comparators.html?querycriteria=productId=SS1089"
+        self.task_code = "CCT2016112500000012"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -31,7 +31,7 @@ class CCT2016112300000003:
         return task_id
 
     def go(self):
-        step = [3]
+        step = [1]
         if 1 in step:
             print("开始进行爬取")
             all_go(task_code=self.task_code, task_id=self.task_id)
@@ -49,7 +49,6 @@ class CCT2016112300000003:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016112300000003()
+    taskn = CCT2016112500000012()
     taskn.go()
-
-:正在修改对应关系
+：正在进行第一步

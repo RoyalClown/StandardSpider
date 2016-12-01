@@ -3,7 +3,7 @@
     @author:        RoyalClown
     @date:          2016/11/30
 """
-from Spider.ST.StandardComparators.productList import Detail, ProductList
+from Spider.ST.BrushlessDCMotorDrivers.productList import Detail, ProductList
 from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
 
 

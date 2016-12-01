@@ -3,12 +3,13 @@
     @author:        RoyalClown
     @date:          2016/11/30
 """
-from Spider.ST.StandardComparators.productList import Detail, ProductList
+
 from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
+from Spider.Rohm.VoltageDetectorWithAdjustableDelayTime.productList import Detail, ProductList
 
 
-def db_save(product_json, task_code, task_id):
-    detail_attributes = Detail(product_json)
+def db_save(url, task_code, task_id):
+    detail_attributes = Detail(url)
     component = detail_attributes.get_component()
 
     orcl_conn = OracleSave(task_code, task_id)
@@ -17,7 +18,7 @@ def db_save(product_json, task_code, task_id):
     except Exception as e:
         print(e)
 
-    many_properties = detail_attributes.get_attributes()
+    many_properties = detail_attributes.get_base_attributes()
 
     for properties in many_properties:
         try:
@@ -25,15 +26,14 @@ def db_save(product_json, task_code, task_id):
         except Exception as e:
             print(e)
     orcl_conn.commit()
-    orcl_conn.conn.close()
 
 
 def all_go(task_code, task_id):
     product_list = ProductList()
-    products_json = product_list.get_product_list()
+    detail_urls = product_list.get_urls_pdfs()
 
     # threading_pool = ThreadingPool()
     # threading_pool.multi_thread(db_save, detail_urls)
 
-    for product_json in products_json:
-        db_save(product_json, task_code, task_id)
+    for detail_url in detail_urls:
+        db_save(detail_url, task_code, task_id)

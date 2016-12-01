@@ -90,6 +90,7 @@ class UtilDataAnalyse(OracleConnection):
         sql = "insert into product$propertyvalue(pv_id, pv_propertyid, pv_componentid, pv_detno, pv_value, pv_unit, pv_numberic, pv_min, pv_max, pv_flag) values ({},{},{},{},{},{},{},{},{},'{}')".format(
             pv_id, pv_propertyid, pv_componentid, pv_detno, pv_value, pv_unit, pv_numberic, pv_min, pv_max,
             pv_flag)
+
         cursor.execute(sql)
         cursor.close()
         return pv_id
@@ -241,6 +242,8 @@ class DataProcessing:
                 # 参数合并
                 tmp_pv_min = ''
                 tmp_pv_max = ''
+                tmp_voltage_min = ''
+                tmp_voltage_max = ''
                 for crawl_property in crawl_base_properties:
                     crawl_property_name = crawl_property[5]
 
@@ -252,11 +255,11 @@ class DataProcessing:
 
                         # 针对参数合并
                         # 获取最小值
-                        if crawl_property_name == "Operating Temperature (°C)min" or crawl_property_name == "Storage Temperature (Min.)[°C]":
-                            tmp_pv_min = crawl_property_value
-                            if tmp_pv_max != '':
-                                pv_min = tmp_pv_min
-                                pv_max = tmp_pv_max
+                        if crawl_property_name == "Supply Voltage (V) min":
+                            tmp_voltage_min = crawl_property_value
+                            if tmp_voltage_max != '':
+                                pv_min = tmp_voltage_min
+                                pv_max = tmp_voltage_max
                                 save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                     base_property_detno,
@@ -273,11 +276,55 @@ class DataProcessing:
                             else:
                                 continue
                         # 获取最大值
-                        elif crawl_property_name == "Operating Temperature (°C)max" or crawl_property_name == "Storage Temperature (Max.)[°C]":
+                        elif crawl_property_name == "Supply Voltage (V) max":
+                            tmp_voltage_max = crawl_property_value
+                            if tmp_voltage_max != '':
+                                pv_min = tmp_voltage_min.split(",")[0]
+                                pv_max = tmp_voltage_max.split(",")[0]
+                                save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
+                                pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                    base_property_detno,
+                                                                    "'" + save_value + "'", pv_max=pv_max,
+                                                                    pv_min=pv_min,
+                                                                    pv_unit="'" + base_property_unit + "'")
+                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                             base_property_id,
+                                                                             base_property_name, save_value,
+                                                                             min=pv_min, max=pv_max,
+                                                                             unit=base_property_unit)
+                                properties_json.append(property_json)
+                                break
+                            else:
+                                continue
+                                # 储存为范围值
+
+                        # 获取最小值
+                        if crawl_property_name == "Operating Temperature (°C) min" or crawl_property_name == "Storage Temperature (Min.)[°C]":
+                            tmp_pv_min = crawl_property_value
+                            if tmp_pv_max != '':
+                                pv_min = tmp_pv_min.split(",")[0]
+                                pv_max = tmp_pv_max.split(",")[0]
+                                save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
+                                pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                    base_property_detno,
+                                                                    "'" + save_value + "'", pv_max=pv_max,
+                                                                    pv_min=pv_min,
+                                                                    pv_unit="'" + base_property_unit + "'")
+                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                             base_property_id,
+                                                                             base_property_name, save_value,
+                                                                             min=pv_min, max=pv_max,
+                                                                             unit=base_property_unit)
+                                properties_json.append(property_json)
+                                break
+                            else:
+                                continue
+                        # 获取最大值
+                        elif crawl_property_name == "Operating Temperature (°C) max" or crawl_property_name == "Storage Temperature (Max.)[°C]":
                             tmp_pv_max = crawl_property_value
                             if tmp_pv_max != '':
-                                pv_min = tmp_pv_min
-                                pv_max = tmp_pv_max
+                                pv_min = tmp_pv_min.split(",")[0]
+                                pv_max = tmp_pv_max.split(",")[0]
                                 save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                     base_property_detno,

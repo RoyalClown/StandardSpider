@@ -1,7 +1,7 @@
 """
     @description:
     @author:        RoyalClown
-    @date:          2016/11/28
+    @date:          2016/11/30
 """
 import re
 
@@ -18,7 +18,7 @@ class ProductList:
         pass
 
     def get_urls_pdfs(self):
-        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\VoltageDetectorWithFixedDelayTime\htmlcode.html", "r",
+        with open("I:\PythonPrj\StandardSpider\Spider\Rohm\VoltageDetectorWithAdjustableDelayTime\htmlcode.html", "r",
                   encoding="utf-8") as f:
             content = f.read()
         bs_content = BeautifulSoup(content, "html.parser")
@@ -62,7 +62,7 @@ class Detail:
     def   get_component(self):
         url = self.url
         code = self.code
-        kiname = "延迟时间固定型电压检测器"
+        kiname = "延迟时间可变型电压检测器"
         attach = self.pdf
         rough_img = re.search(r'productThumnailImageLogo="(http://rohmfs\.rohm\.com.*?\.jpg)"', self.content)
         try:
@@ -100,3 +100,4 @@ class Detail:
 if __name__ == "__main__":
     productlist = ProductList()
     productlist.get_urls_pdfs()
+

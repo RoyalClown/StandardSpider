@@ -1,5 +1,24 @@
-[INFO  - 2016-11-14T02:08:32.437Z] GhostDriver - Main - running on port 51150
-[INFO  - 2016-11-14T02:08:33.583Z] Session [3ec55550-aa0f-11e6-b63d-c79002755ecc] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2016-11-14T02:08:33.583Z] Session [3ec55550-aa0f-11e6-b63d-c79002755ecc] - page.customHeaders:  - {}
-[INFO  - 2016-11-14T02:08:33.583Z] Session [3ec55550-aa0f-11e6-b63d-c79002755ecc] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2016-11-14T02:08:33.583Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 3ec55550-aa0f-11e6-b63d-c79002755ecc
+"""
+    Who is still awake during the darkness
+    Dark mood with the cloak and mask
+    The darkness of night is not the darkest
+    But we cannot find the baseline of the greedy
+
+    Humble street is under the feet
+    I stand on the skylines of the city alone
+    Don't suspect me of the evil or kind
+    I am just a mammal desiring to fly
+
+    The river between evil and kindness
+    Is not about an uncrossable opposite aspect
+    But the defense for innocence
+    Of everyone
+    Nothing can get away from the challenge
+
+    Is there a challenge or not
+    Is there a quenching or not
+    Which rescues the world just like the plot of hero movie
+    Is there a belief or not
+    Is there a oath or not
+    Which calls the appearance of dawn
+"""

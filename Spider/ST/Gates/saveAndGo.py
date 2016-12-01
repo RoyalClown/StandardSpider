@@ -1,7 +1,7 @@
 """
     @description:   
     @author:        RoyalClown
-    @date:          2016/11/21
+    @date:          2016/11/29
 """
 from Spider.ST.Gates.productList import Detail, ProductList
 from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave

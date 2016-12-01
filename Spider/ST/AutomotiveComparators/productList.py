@@ -14,12 +14,12 @@ from Spider.ST.STConstant import ST_Pre_Url, ST_Relation
 
 class ProductList:
     def __init__(self,
-                 url="http://www.st.com/en/amplifiers-and-comparators/standard-comparators.html?querycriteria=productId=SS1089"):
+                 url="http://www.st.com/en/amplifiers-and-comparators/automotive-comparators.html?querycriteria=productId=SS1616"):
         self.url = url
 
     def get_product_list(self):
         res = requests.get(
-            "http://www.st.com/content/st_com/en/products/amplifiers-and-comparators/comparators/standard-comparators.product-grid.html/SS1089.json")
+            "http://www.st.com/content/st_com/en/products/amplifiers-and-comparators/comparators/standard-comparators.product-grid.html/SS1616.json")
         contents = res.content.decode("utf-8")
 
         data_json = json.loads(contents)
@@ -33,7 +33,7 @@ class Detail:
     def get_component(self):
         url = ST_Pre_Url + self.product_json["productFolderUrl"]
         code = self.product_json["cells"][0]["value"]
-        kiname = "Standard Comparators"
+        kiname = "Automotive Comparators"
 
         img = ""
 
@@ -63,7 +63,7 @@ class Detail:
                 attribute_value = attributes_value["value"].split(",")[0]
             else:
                 attribute_value = attributes_value["value"]
-            attribute = (attribute_key, attribute_value, )
+            attribute = (attribute_key, attribute_value,)
             many_attributes.append(attribute)
 
         return many_attributes

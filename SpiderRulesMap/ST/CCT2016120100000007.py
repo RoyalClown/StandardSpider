@@ -1,24 +1,24 @@
 """
     @description:   来源:ST官网
                     商城品牌:意法半导体
-                    目标类目:Brushed DC Motor Drivers
-                    商城类目:马达/运动/点火控制器和驱动器
-                    来源网址:http://www.st.com/en/motor-drivers/brushed-dc-motor-drivers.html?querycriteria=productId=SC2131
+                    目标类目:I/O Expanders
+                    商城类目:I/O扩展器
+                    来源网址:http://www.st.com/en/interfaces-and-transceivers/i-o-expanders.html?querycriteria=productId=SC1027
     @author:        RoyalClown
     @date:          2016/11/30
 """
 from DataAnalyse.dbDataGet.ST_data import DataProcessing
-from Spider.ST.BrushedDCMotorDrivers.saveAndGo import all_go
+from Spider.ST.IOExpanders.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016112900000006:
+class CCT2016120100000007:
     def __init__(self):
-        self.url = "http://www.st.com/en/motor-drivers/brushed-dc-motor-drivers.html?querycriteria=productId=SC2131"
-        self.task_code = "CCT2016112900000006"
+        self.url = "http://www.st.com/en/interfaces-and-transceivers/i-o-expanders.html?querycriteria=productId=SC1027"
+        self.task_code = "CCT2016120100000007"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -31,7 +31,7 @@ class CCT2016112900000006:
         return task_id
 
     def go(self):
-        step = [1]
+        step = [3]
         if 1 in step:
             print("开始进行爬取")
             all_go(task_code=self.task_code, task_id=self.task_id)
@@ -49,5 +49,5 @@ class CCT2016112900000006:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016112900000006()
+    taskn = CCT2016120100000007()
     taskn.go()

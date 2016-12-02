@@ -23,6 +23,8 @@ class ImgDownload:
     def get_urls_from_db(self):
         cursor = self.db.conn.cursor()
         # 去除与之前爬取img重复的
+
+        cursor.execute("update product$component set cmp_img=null where cmp_img='None'")
         cursor.execute(
             "update product$component_crawl a set cc_b2c_img=(select cc_b2c_img from product$component_crawl b where a.cc_img=b.cc_img and b.cc_b2c_img is not null and rownum=1) where cc_b2c_img is null")
         cursor.execute("select distinct cc_img from product$component_crawl where cc_b2c_img is null and cc_img is not null")

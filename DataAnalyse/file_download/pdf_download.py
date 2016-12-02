@@ -23,6 +23,7 @@ class PdfDownload:
 
     def get_urls_from_db(self):
         cursor = self.db.conn.cursor()
+        cursor.execute("update product$component set cmp_attach=null where cmp_attach='None'")
         # 去除与之前爬取pdf重复的
         cursor.execute(
             "update product$component_crawl a set cc_b2c_attach=(select cc_b2c_attach from product$component_crawl b where a.cc_attach=b.cc_attach and b.cc_b2c_attach is not null and rownum=1) where cc_b2c_attach is null")

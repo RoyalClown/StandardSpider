@@ -3,6 +3,5 @@
     @author:        RoyalClown
     @date:          2016/11/23
 """
-a = {1: "a", 2: "b"}
-for k in a.keys():
-    print(k)
+for i in range(1, 3):
+    print(i)

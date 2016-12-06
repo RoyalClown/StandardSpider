@@ -1,7 +1,5 @@
-from DataAnalyse.dbDataGet.Constant import UserJson
 from DataAnalyse.dbDataGet.ST_data import UtilDataAnalyse
 from DataAnalyse.valueProcessing.propertyValueModify import PropertyValueModify
-from Lib.DBConnection.OracleConnection import OracleConnection
 
 
 class DataProcessing:
@@ -92,6 +90,15 @@ class DataProcessing:
                 # 参数合并
                 tmp_pv_min = ''
                 tmp_pv_max = ''
+                tmp_voltage_min = ''
+                tmp_voltage_max = ''
+                tmp_voltage_typ = ''
+                tmp_communication0 = ''
+                tmp_communication2 = ''
+                tmp_communication1 = ''
+                tmp_sup_voltage_min = ''
+                tmp_sup_voltage_max = ''
+
                 for crawl_property in crawl_base_properties:
                     crawl_property_name = crawl_property[5]
 
@@ -103,11 +110,100 @@ class DataProcessing:
 
                         # 针对参数合并
                         # 获取最小值
-                        if crawl_property_name == "Operating Temperature (Min.)[°C]" or crawl_property_name == "Storage Temperature (Min.)[°C]":
+                        # if crawl_property_name == "Supply Voltage (V) min":
+                        #     tmp_voltage_min = crawl_property_value
+                        #     if tmp_voltage_max != '':
+                        #         pv_min = tmp_voltage_min
+                        #         pv_max = tmp_voltage_max
+                        #         save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
+                        #         pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                        #                                             base_property_detno,
+                        #                                             "'" + save_value + "'", pv_max=pv_max,
+                        #                                             pv_min=pv_min,
+                        #                                             pv_unit="'" + base_property_unit + "'")
+                        #         property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                        #                                                      base_property_id,
+                        #                                                      base_property_name, save_value,
+                        #                                                      min=pv_min, max=pv_max,
+                        #                                                      unit=base_property_unit)
+                        #         properties_json.append(property_json)
+                        #         break
+                        #     else:
+                        #         continue
+                        # # 获取典型值
+                        # elif crawl_property_name == "Supply Voltage (V) typ":
+                        #     tmp_voltage_typ = crawl_property_value
+                        #     if tmp_voltage_max != '':
+                        #         pv_min = tmp_voltage_min.split(",")[0]
+                        #         pv_max = tmp_voltage_max.split(",")[0]
+                        #         pv_typ = tmp_voltage_typ
+                        #         save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit + "," + tmp_voltage_typ
+                        #         pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                        #                                             base_property_detno,
+                        #                                             "'" + save_value + "'", pv_max=pv_max,
+                        #                                             pv_min=pv_min,
+                        #                                             pv_unit="'" + base_property_unit + "'")
+                        #         property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                        #                                                      base_property_id,
+                        #                                                      base_property_name, save_value,
+                        #                                                      min=pv_min, max=pv_max,
+                        #                                                      unit=base_property_unit)
+                        #         properties_json.append(property_json)
+                        #         break
+                        #     else:
+                        #         continue
+                        # # 获取最大值
+                        # elif crawl_property_name == "Supply Voltage (V) max":
+                        #     tmp_voltage_max = crawl_property_value
+                        #     if tmp_voltage_min != '':
+                        #         pv_min = tmp_voltage_min.split(",")[0]
+                        #         pv_max = tmp_voltage_max.split(",")[0]
+                        #         save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit + "," + tmp_voltage_typ
+                        #         pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                        #                                             base_property_detno,
+                        #                                             "'" + save_value + "'", pv_max=pv_max,
+                        #                                             pv_min=pv_min,
+                        #                                             pv_unit="'" + base_property_unit + "'")
+                        #         property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                        #                                                      base_property_id,
+                        #                                                      base_property_name, save_value,
+                        #                                                      min=pv_min, max=pv_max,
+                        #                                                      unit=base_property_unit)
+                        #         properties_json.append(property_json)
+                        #         break
+                        #     else:
+                        #         continue
+
+                        if crawl_property_name == "Communication standards supported (ISO7816)":
+                            tmp_communication0 = crawl_property_value
+
+                            continue
+                        # 获取典型值
+                        elif crawl_property_name == "Communication standards supported (GSM) ":
+                            tmp_communication1 = crawl_property_value
+                            continue
+                        # 获取最大值
+                        elif crawl_property_name == "Communication standards supported (EMV compatible)":
+                            tmp_communication2 = crawl_property_value
+                            pv_min = tmp_communication0
+                            pv_max = tmp_communication1
+                            save_value = pv_min + "," + pv_max + "," + tmp_communication2
+                            pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                base_property_detno,
+                                                                "'" + save_value + "'",)
+                            property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                         base_property_id,
+                                                                         base_property_name, save_value,)
+                            properties_json.append(property_json)
+                            break
+                                # 储存为范围值
+
+                        # 获取最小值
+                        if crawl_property_name == "Operating Temperature (°C) min" or crawl_property_name == "Operating Ambient Temperature (°C)min":
                             tmp_pv_min = crawl_property_value
                             if tmp_pv_max != '':
-                                pv_min = tmp_pv_min
-                                pv_max = tmp_pv_max
+                                pv_min = tmp_pv_min.split(",")[0]
+                                pv_max = tmp_pv_max.split(",")[0]
                                 save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                     base_property_detno,
@@ -124,11 +220,57 @@ class DataProcessing:
                             else:
                                 continue
                         # 获取最大值
-                        elif crawl_property_name == "Operating Temperature (Max.)[°C]" or crawl_property_name == "Storage Temperature (Max.)[°C]":
+                        elif crawl_property_name == "Operating Temperature (°C) max" or crawl_property_name == "Operating Ambient Temperature (°C)max":
                             tmp_pv_max = crawl_property_value
                             if tmp_pv_max != '':
-                                pv_min = tmp_pv_min
-                                pv_max = tmp_pv_max
+                                pv_min = tmp_pv_min.split(",")[0]
+                                if not pv_min:
+                                    pv_min = "''"
+                                pv_max = tmp_pv_max.split(",")[0]
+                                save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
+                                pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                    base_property_detno,
+                                                                    "'" + save_value + "'", pv_max=pv_max,
+                                                                    pv_min=pv_min,
+                                                                    pv_unit="'" + base_property_unit + "'")
+                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                             base_property_id,
+                                                                             base_property_name, save_value,
+                                                                             min=pv_min, max=pv_max,
+                                                                             unit=base_property_unit)
+                                properties_json.append(property_json)
+                                break
+                            else:
+                                continue
+                        # 获取最小值
+                        if crawl_property_name == "Supplementary supply voltage (V) (VDDP) min":
+                            tmp_sup_voltage_min = crawl_property_value
+                            if tmp_sup_voltage_max != '':
+                                pv_min = tmp_sup_voltage_min.split(",")[0]
+                                pv_max = tmp_sup_voltage_max.split(",")[0]
+                                save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
+                                pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                    base_property_detno,
+                                                                    "'" + save_value + "'", pv_max=pv_max,
+                                                                    pv_min=pv_min,
+                                                                    pv_unit="'" + base_property_unit + "'")
+                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                             base_property_id,
+                                                                             base_property_name, save_value,
+                                                                             min=pv_min, max=pv_max,
+                                                                             unit=base_property_unit)
+                                properties_json.append(property_json)
+                                break
+                            else:
+                                continue
+                        # 获取最大值
+                        elif crawl_property_name == "Supplementary supply voltage (V) (VDDP) max":
+                            tmp_sup_voltage_max = crawl_property_value
+                            if tmp_sup_voltage_max != '':
+                                pv_min = tmp_sup_voltage_min.split(",")[0]
+                                if not pv_min:
+                                    pv_min = "''"
+                                pv_max = tmp_sup_voltage_max.split(",")[0]
                                 save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                     base_property_detno,
@@ -247,26 +389,24 @@ class DataProcessing:
                                                                                              save_value,
                                                                                              numberic=str_numberic,
                                                                                              unit=rough_base_property_unit)
-                                                break
 
                                         else:
                                             print("出现异常")
 
                                     # 只有一个单位
                                     else:
-                                        if crawl_unit.lower() in base_property_unit.lower():
-                                            save_value = str_numberic + base_property_unit
-                                            pv_id = spcap_data.save_to_property(base_property_id, component_id,
-                                                                                base_property_detno,
-                                                                                "'" + save_value + "'",
-                                                                                pv_numberic=str_numberic,
-                                                                                pv_unit="'" + base_property_unit + "'")
-                                            property_json = spcap_data.get_property_json(base_property_detno, pv_id,
-                                                                                         base_property_id,
-                                                                                         base_property_name,
-                                                                                         save_value,
-                                                                                         numberic=str_numberic,
-                                                                                         unit=base_property_unit)
+                                        save_value = str_numberic + base_property_unit
+                                        pv_id = spcap_data.save_to_property(base_property_id, component_id,
+                                                                            base_property_detno,
+                                                                            "'" + save_value + "'",
+                                                                            pv_numberic=str_numberic,
+                                                                            pv_unit="'" + base_property_unit + "'")
+                                        property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                                     base_property_id,
+                                                                                     base_property_name,
+                                                                                     save_value,
+                                                                                     numberic=str_numberic,
+                                                                                     unit=base_property_unit)
 
                                 else:
                                     # N类型范围值
@@ -346,7 +486,6 @@ class DataProcessing:
                 else:
                     pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno, 'null')
                     # property_json = spcap_data.get_property_json(base_property_detno, pv_id, base_property_id, base_property_name, '')
-
             if not cc_flag:
                 cc_flag = insert_or_update
             spcap_data.update_crawl_uuid(uuid, task_id, crawl_component_code, cc_flag=cc_flag,

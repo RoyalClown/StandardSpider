@@ -29,7 +29,7 @@ class CCT2016111500000009:
         print("开始进行爬取")
         all_go(self.task_code, self.task_id)
         print("成功完成爬取数据到爬虫数据表\n------------------现在开始下载pdf、img文件-----------------")
-        pdf_download = PdfDownload(self.task_id)
+        pdf_download = PdfDownload()
         pdf_download.go()
         # 此类目无图片
         print("pdf、img下载完成，开始对数据进行分析并存入数据库")

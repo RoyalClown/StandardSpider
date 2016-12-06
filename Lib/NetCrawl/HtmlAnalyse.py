@@ -14,10 +14,10 @@ class HtmlAnalyse:
         self._session = requests.Session()
         self._session.headers.update(Default_Header)
         if is_proxy:
-            proxy_ip = {'http': '60.223.236.146:8998'}
+            proxy_ip = {'http': '124.88.67.52:843'}
             self._session.proxies.update(proxy_ip)
         if is_cookie:
-            with open("I:\\PythonPrj\\zhihu\\test.json") as f:
+            with open("I:\PythonPrj\StandardSpider\Lib\\NetCrawl\Cookie.json") as f:
                 cookies = f.read()
             print(cookies)
             cookies_dict = json.loads(cookies)
@@ -72,6 +72,10 @@ class HtmlAnalyse:
         res = self._session.get(self.url, stream=True)
         with open(path, 'wb') as f:
             f.write(res.content)
+
+    def post_contents(self, data):
+        contents = self._session.post(self.url, data=data).text
+        return contents
 
 
 if __name__ == "__main__":

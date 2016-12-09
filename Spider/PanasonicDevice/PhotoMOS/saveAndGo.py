@@ -3,7 +3,7 @@
     @author:        RoyalClown
     @date:          2016/11/16
 """
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
+from DBSave.oracleSave import OracleSave
 from Spider.PanasonicDevice.PhotoMOS.productList import Detail, ProductList
 
 

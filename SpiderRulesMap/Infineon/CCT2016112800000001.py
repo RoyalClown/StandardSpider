@@ -1,23 +1,23 @@
 """
-    @description:   来源:松下官网
-                    商城品牌:松下
-                    目标类目:焦电型红外线传感器 PaPIRs
-                    商城类目:板机接口移动感应器和位置传感器
-                    来源网址:http://device.panasonic.cn/ac/c/control/sensor/human/index.jsp
+    @description:   来源:英飞凌官网
+                    商城品牌:英飞凌
+                    目标类目:Power MOSFET Bare Die
+                    商城类目:金属氧化物半导体场效应管-MOSFET
+                    来源网址:http://www.infineon.com/cms/cn/product/power/power-mosfet/power-mosfet-bare-die/channel.html?channel=db3a3043440adf7501440bc6f605009e
     @author:        RoyalClown
-    @date:          2016/12/5
+    @date:          2016/12/8
 """
-from DataAnalyse.dbDataGet.PanasonicDevice_data import DataProcessing
-from Spider.PanasonicDevice.ControlSensor.saveAndGo import all_go
+from Spider.Infineon.PowerMOSFETBareDie.saveAndGo import all_go
+from DataAnalyse.dbDataGet.Infineon_data import DataProcessing
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016112400000004:
+class CCT2016112800000001:
     def __init__(self):
-        self.task_code = "CCT2016112400000004"
+        self.task_code = "CCT2016112800000001"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,5 +49,5 @@ class CCT2016112400000004:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016112400000004()
+    taskn = CCT2016112800000001()
     taskn.go()

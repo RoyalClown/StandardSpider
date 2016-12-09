@@ -3,8 +3,8 @@
     @author:        RoyalClown
     @date:          2016/11/17
 """
+from DBSave.oracleSave import OracleSave
 from Spider.Kionix.Accelerometer.productList import Detail, ProductList
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
 
 
 def db_save(url, single_json, task_code, task_id):

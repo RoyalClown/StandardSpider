@@ -3,8 +3,8 @@
     @author:        RoyalClown
     @date:          2016/11/14
 """
+from DBSave.oracleSave import OracleSave
 from Spider.Azurewave.ModuleIC.detailAttributes import DetailAttributes
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
 
 
 def db_save(product_tag, img_tag, task_code, task_id):

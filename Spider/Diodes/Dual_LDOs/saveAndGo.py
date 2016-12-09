@@ -3,8 +3,8 @@
     @author:        RoyalClown
     @date:          2016/11/21
 """
+from DBSave.oracleSave import OracleSave
 from Spider.Diodes.Dual_LDOs.productList import Detail, ProductList
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
 
 
 def db_save(product_json, result_json, task_code, task_id):

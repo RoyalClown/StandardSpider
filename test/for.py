@@ -3,5 +3,8 @@
     @author:        RoyalClown
     @date:          2016/11/23
 """
-for i in range(1, 3):
-    print(i)
+import re
+
+a = "\ta\n  \n    \t  ed"
+b = re.compile(r'\s').sub("", a)
+print(b)

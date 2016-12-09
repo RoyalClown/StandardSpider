@@ -3,8 +3,8 @@
     @author:        RoyalClown
     @date:          2016/11/25
 """
+from DBSave.oracleSave import OracleSave
 from Spider.Atmel.Serial_EEPROM_I2C.productList import Detail, ProductList
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
 
 
 def db_save(component, many_properties, task_code, task_id):

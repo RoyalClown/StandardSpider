@@ -5,8 +5,7 @@
 """
 import os
 
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
-
+from DBSave.oracleSave import OracleSave
 from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
 
 

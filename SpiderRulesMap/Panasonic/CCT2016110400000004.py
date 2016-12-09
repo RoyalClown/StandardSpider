@@ -6,7 +6,7 @@ from DataAnalyse.dbDataGet.Util_data import DataProcessing
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
-from Spider.Panasonic.second_type1.third_type1.forth_type1.forthGo import forth_go
+from Spider.Panasonic.forth_type1.forthGo import forth_go
 
 
 class CCT2016110400000004:

@@ -4,7 +4,7 @@
     @date:          2016/11/17
 """
 
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
+from DBSave.oracleSave import OracleSave
 from Spider.Rohm.VoltageRegulator.DDR_SDRAM.productList import Detail, ProductList
 
 

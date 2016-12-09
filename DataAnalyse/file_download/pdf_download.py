@@ -36,7 +36,7 @@ class PdfDownload:
 
         pdf_urls = []
         for pdf_data in pdf_datas:
-            if re.match(r'.*?\.pdf$', pdf_data[0]):
+            if re.match(r'.*?\.pdf', pdf_data[0]):
                 pdf_urls.append(pdf_data[0])
         return pdf_urls
 

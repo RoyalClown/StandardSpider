@@ -3,8 +3,7 @@
     @author:        RoyalClown
     @date:          2016/11/14
 """
-from Lib.Currency.ThreadingPool import ThreadingPool
-from Spider.Panasonic.second_type1.third_type1.forth_type1.DBSave.oracleSave import OracleSave
+from DBSave.oracleSave import OracleSave
 from Spider.Rohm.EEPROM.detailAttributes import DetailAttributes
 from Spider.Rohm.EEPROM.productlist import ProductList
 

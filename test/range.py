@@ -14,4 +14,6 @@ def download(pdf_url):
 
 
 if __name__ == "__main__":
-    download("http://device.panasonic.cn/ac/c_download/control/relay/photomos/catalog/semi_cn_rf4a_aqs22_fs_cr10.pdf?via=ok")
+    with open("a.txt", "w", encoding="utf-8") as f:
+        f.write(r"水电费")
+

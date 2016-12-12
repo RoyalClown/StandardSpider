@@ -1,13 +1,13 @@
 """
     @description:   来源:英飞凌官网
                     商城品牌:英飞凌
-                    目标类目:900V CoolMOS™ N-Channel Power MOSFET
+                    目标类目:650V and 700V CoolMOS™ N-Channel Power MOSFET
                     商城类目:金属氧化物半导体场效应管-MOSFET
-                    来源网址:http://www.infineon.com/cms/cn/product/power/power-mosfet/500v-900v-n-channel-coolmos-power-mosfet/900v-coolmos-n-channel-power-mosfet/channel.html?channel=5546d4624e765da5014ecef53a514963
+                    来源网址:http://www.infineon.com/cms/cn/product/power/power-mosfet/500v-900v-n-channel-coolmos-power-mosfet/650v/700v-coolmos-n-channel-power-mosfet/channel.html?channel=5546d4624e765da5014ecef539514960
     @author:        RoyalClown
-    @date:          2016/12/8
+    @date:          2016/12/9
 """
-from Spider.Infineon.CoolMOSN_ChannelPowerMOSFET900V.saveAndGo import all_go
+from Spider.Infineon.CoolMOSN_ChannelPowerMOSFET650Vand700V.saveAndGo import all_go
 from DataAnalyse.dbDataGet.Infineon_data import DataProcessing
 
 from DataAnalyse.file_download.img_download import ImgDownload
@@ -15,9 +15,9 @@ from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016112800000002:
+class CCT2016120800000012:
     def __init__(self):
-        self.task_code = "CCT2016112800000002"
+        self.task_code = "CCT2016120800000012"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,6 +49,5 @@ class CCT2016112800000002:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016112800000002()
+    taskn = CCT2016120800000012()
     taskn.go()
-:异常中！！！

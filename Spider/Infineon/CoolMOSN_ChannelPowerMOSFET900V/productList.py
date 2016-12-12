@@ -59,8 +59,11 @@ class Detail:
                     key = "RDS (on)"
                     value = tr.td.next_sibling.next_sibling.text.strip()
 
+                elif "Operating Temperature" in tr.td.text and "min" in tr.td.text and "max" in tr.td.text:
+                    key = "Operating Temperature min max"
+                    value = tr.td.next_sibling.next_sibling.text.strip()
                 elif "Operating Temperature" in tr.td.text and "min" in tr.td.text:
-                    key = "RDS (on)"
+                    key = "Operating Temperature min"
                     value = tr.td.next_sibling.next_sibling.text.strip()
 
                 elif "V" in tr.td.text and "DS" in tr.td.text and "max" in tr.td.text:
@@ -72,7 +75,7 @@ class Detail:
 
                 elif "V" in tr.td.text and "GS(th)" in tr.td.text and "min" in tr.td.text and "max" in tr.td.text:
                     key = "VGS(th) min max"
-                    value = re.compile(r'\s').sub("", tr.td.next_sibling.next_sibling.text).replace("\xa0", "")
+                    value = re.compile(r'\s').sub("", tr.td.next_sibling.next_sibling.text).replace("\xa0", "-")
 
                 elif "Technology" in tr.td.text:
                     key = "Technology"

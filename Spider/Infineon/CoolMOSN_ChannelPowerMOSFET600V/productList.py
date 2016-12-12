@@ -1,7 +1,7 @@
 """
     @description:   
     @author:        RoyalClown
-    @date:          2016/12/8
+    @date:          2016/12/9
 """
 import json
 import re
@@ -14,7 +14,7 @@ from Spider.Infineon.InfineonConstant import Infineon_Pre_Url
 
 class ProductList:
     def __init__(self,
-                 url="http://www.infineon.com/cms/cn/product/power/power-mosfet/500v-900v-n-channel-coolmos-power-mosfet/500v-coolmos-n-channel-power-mosfet/channel.html?channel=5546d4624e765da5014ecef53832495d"):
+                 url="http://www.infineon.com/cms/cn/product/power/power-mosfet/500v-900v-n-channel-coolmos-power-mosfet/600v-coolmos-n-channel-power-mosfet/channel.html?channel=ff80808112ab681d0112ab6a628704d8"):
         self.url = url
 
     def get_product_list(self):
@@ -36,8 +36,11 @@ class Detail:
 
     def get_component(self):
         url = self.url
-        code = self.bs_content.find(name="th", text='OPN').next_sibling.next_sibling.text
-        kiname = "500V CoolMOS™ N-Channel Power MOSFET"
+        try:
+            code = self.bs_content.find(name="th", text='OPN').next_sibling.next_sibling.text
+        except:
+            code = self.bs_content.find(name="h1", attrs={"class": "page-title"}).text
+        kiname = "800V CoolMOS™ N-Channel Power MOSFET"
         img = ""
         data_sheet = self.bs_content.find(name="a", attrs={"href": re.compile(r'/dgdl/Infineon.*?EN\.pdf')})
         attach = Infineon_Pre_Url + data_sheet.get("href")
@@ -59,6 +62,9 @@ class Detail:
                     key = "RDS (on)"
                     value = tr.td.next_sibling.next_sibling.text.strip()
 
+                elif "Operating Temperature" in tr.td.text and "min" in tr.td.text and "max" in tr.td.text:
+                    key = "Operating Temperature min max"
+                    value = tr.td.next_sibling.next_sibling.text.strip()
                 elif "Operating Temperature" in tr.td.text and "min" in tr.td.text:
                     key = "Operating Temperature min"
                     value = tr.td.next_sibling.next_sibling.text.strip()
@@ -72,7 +78,7 @@ class Detail:
 
                 elif "V" in tr.td.text and "GS(th)" in tr.td.text and "min" in tr.td.text and "max" in tr.td.text:
                     key = "VGS(th) min max"
-                    value = re.compile(r'\s').sub("", tr.td.next_sibling.next_sibling.text).replace("\xa0", "")
+                    value = re.compile(r'\s').sub("", tr.td.next_sibling.next_sibling.text).replace("\xa0", "-")
 
                 elif "Technology" in tr.td.text:
                     key = "Technology"

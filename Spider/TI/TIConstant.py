@@ -22,6 +22,6 @@ TI_Relation = {"o1": "QGPN",                                 "o2": "GPN",
                "p236typ": "Iq",                "p1811": "Package Size",
                "p32": "Regulated Outputs",                               "p2240": "Powered Load",
 
-               "": "", "": "",
-               "": "", "": "",
+               "p675max": "Vout2 (Max) (V)", "p675min": "Vout2 (Min) (V)",
+               "p1015": "Iout2 (A)", "": "",
                }

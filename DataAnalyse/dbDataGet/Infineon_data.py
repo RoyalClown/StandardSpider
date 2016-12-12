@@ -127,6 +127,24 @@ class DataProcessing:
                                 break
                             else:
                                 continue
+                        if crawl_property_name == 'Operating Temperature min':
+                            try:
+                                flag = property_value_modify.double_with_unit(crawl_property_value)
+                                pv_min = flag.group(1)
+                                save_value = pv_min + base_property_unit
+                                pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
+                                                                    "'" + save_value + "'",
+                                                                    pv_min=pv_min,
+                                                                    pv_unit="'" + base_property_unit + "'")
+                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
+                                                                             base_property_id,
+                                                                             base_property_name, save_value,
+                                                                             min=pv_min,
+                                                                             unit=base_property_unit)
+                                properties_json.append(property_json)
+                                break
+                            except:
+                                continue
 
                         """ 这里还需要对不同属性值进行处理 """
                         # F类型

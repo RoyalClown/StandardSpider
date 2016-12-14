@@ -101,7 +101,9 @@ class DataProcessing:
                     if not crawl_property_value:
                         continue
                     # 目标类目匹配
-                    if crawl_property_name.lower().replace(" ", "") in aim_property_name.lower().replace(" ", ""):
+                    if crawl_property_name.lower().replace(" ", "") in aim_property_name.lower().replace(" ", "") or (aim_property_name == "电阻值容差" and crawl_property_name == "电阻值容差 (%)" )\
+                            or (aim_property_name == "电阻温度系数" and crawl_property_name == "电阻温度系数 (ppm/℃)") \
+                            or (aim_property_name == "片式尺寸(长 x 宽)" and crawl_property_name == "片式尺寸(长 x 宽) (mm)"):
 
                         # 针对参数合并
                         if crawl_property_name == "直流或交流":

@@ -1,23 +1,23 @@
 """
-    @description:   来源:英飞凌官网
-                    商城品牌:英飞凌
-                    目标类目:600V CoolMOS™ N-Channel Power MOSFET
-                    商城类目:金属氧化物半导体场效应管-MOSFET
-                    来源网址:http://www.infineon.com/cms/cn/product/power/power-mosfet/500v-900v-n-channel-coolmos-power-mosfet/600v-coolmos-n-channel-power-mosfet/channel.html?channel=ff80808112ab681d0112ab6a628704d8
+    @description:   来源:Rohm官网
+                    商城品牌:罗姆半导体
+                    目标类目:导电性高分子电容器
+                    商城类目:导电性聚合物钽固体电解电容器
+                    来源网址:http://www.rohm.com.cn/web/china/search/parametric/-/search/Conductive%20Polymer%20Capacitors
     @author:        RoyalClown
-    @date:          2016/12/9
+    @date:          2016/12/12
 """
-from Spider.Infineon.CoolMOSN_ChannelPowerMOSFET600V.saveAndGo import all_go
-from DataAnalyse.dbDataGet.Infineon_data import DataProcessing
+from DataAnalyse.dbDataGet.RohmMonitoringCircuit_data import DataProcessing
+from Spider.Rohm.ConductivePolymerCapacitors.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016120800000013:
+class CCT2016120200000021:
     def __init__(self):
-        self.task_code = "CCT2016120800000013"
+        self.task_code = "CCT2016120200000021"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -30,14 +30,13 @@ class CCT2016120800000013:
         return task_id
 
     def go(self):
-        step = [1]
+        step = [3]
         if 1 in step:
-            print("开始进行爬取")
+            print("开始进行器件基本信息抓取")
             all_go(task_code=self.task_code, task_id=self.task_id)
             print("成功完成爬取数据到爬虫数据表\n------------------现在开始下载pdf、img文件-----------------")
         if 2 in step:
             pdf_download = PdfDownload()
-
             pdf_download.go()
             img_download = ImgDownload()
             img_download.go()
@@ -49,6 +48,5 @@ class CCT2016120800000013:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016120800000013()
+    taskn = CCT2016120200000021()
     taskn.go()
-:in left

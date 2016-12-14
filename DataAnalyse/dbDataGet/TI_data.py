@@ -103,15 +103,15 @@ class DataProcessing:
 
                         # 储存为范围值
                         # 获取最大值
-                        if crawl_property_name == "Vout (Min) (V)":
+                        if crawl_property_name == "Vout (Max) (V)":
                             tmp_two_first0 = crawl_property_value
                             continue
                         # 获取最小值
-                        elif crawl_property_name == "Vout (Max) (V)":
+                        elif crawl_property_name == "Vout (Min) (V)":
                             tmp_two_second0 = crawl_property_value
                             if tmp_two_first0 != '':
-                                pv_min = tmp_two_first0
-                                pv_max = tmp_two_second0
+                                pv_min = tmp_two_second0
+                                pv_max = tmp_two_first0
                                 save_value = pv_min + base_property_unit + "~" + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                     base_property_detno,

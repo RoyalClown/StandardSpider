@@ -1,12 +1,9 @@
 """
     @description:   
     @author:        RoyalClown
-    @date:          2016/12/12
+    @date:          2016/12/13
 """
 import re
-
-import requests
-from bs4 import BeautifulSoup
 
 from Lib.DBConnection.OracleConnection import OracleConnection
 from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
@@ -49,7 +46,7 @@ class ProductList:
 
         return series_urls
 
-    def get_code_urls(self, series_url):
+    def get_products_list(self, series_url):
         def get_pages_urls(url):
             html_analyse = HtmlAnalyse(url, is_proxy=True)
             bs_content = html_analyse.get_bs_contents()
@@ -65,78 +62,50 @@ class ProductList:
                 page_urls.append(page_url)
             return page_urls
 
-        product_urls = []
+        product_lists = []
         page_urls = get_pages_urls(series_url)
         if page_urls is None:
             return None
         for page_url in page_urls[:]:
             html_analyse = HtmlAnalyse(page_url)
             bs_contents = html_analyse.get_bs_contents()
-            lists = bs_contents.find_all(name='tr', attrs={"class": re.compile(u"(^odd$)|(^even$)")})
-            if not lists:
+            product_list = bs_contents.find_all(name='tr', attrs={"class": re.compile(u"(^odd$)|(^even$)")})[1:]
+            if not product_list:
                 continue
-            for list in lists[1:]:
-                try:
-                    model = list.td.a
-                    code = model.text
-                except:
-                    break
-
-                # *******去重*******
-                orcl_con = OracleConnection()
-                cursor = orcl_con.conn.cursor()
-                cursor.execute("select cc_id from product$component_crawl where cc_code='{}'".format(code))
-                data = cursor.fetchone()
-                if data:
-                    print("repeat")
-                    continue
-                cursor.close()
-                orcl_con.conn.close()
-                # *******结束*******
-
-                href = model.get("href")
-                url = Panasonic_Pre_Url + href
-                product_urls.append(url)
-        return product_urls
+            product_lists += product_list
+        return product_lists
 
 
 class Detail:
-    def __init__(self, url):
-        self.url = url
-        html_analyse = HtmlAnalyse(self.url)
-        self.bs_content = html_analyse.get_bs_contents()
+    def __init__(self, product_list):
+        self.product_list = product_list
 
     def get_component(self):
         # cc_url
-        url = self.url
+        url = Panasonic_Pre_Url + self.product_list.td.a.get('href')
 
         # cc_code
-        code = self.bs_content.find(name='span', attrs={'id': "model-info-model-number"}).text.replace('.', ' ')[3:]
+        code = self.product_list.td.a.text
 
         # cc_kiname
-        kiname = self.bs_content.find(name='span', attrs={'id': "model-info-series-type"}).text.replace('.', ' ')[3:]
+        kiname = "耐电涌片式电阻器/耐脉冲片式电阻器"
 
-        rough_img = self.bs_content.find(name='img', attrs={'typeof': 'foaf:Image'}).get('src')
         # cc_img
-        img = Panasonic_Pre_Url + rough_img
+        img = "https://industrial.panasonic.cn/cdbs/www-data/gif/RDA0000/AOA0000SC86.gif"
 
-        rough_attach = self.bs_content.find(name='a', text=re.compile(r'产品样本')).get('href')
         # cc_attach
-        attach = Panasonic_Pre_Url + rough_attach
+        attach = "https://industrial.panasonic.cn/cdbs/www-data/pdf/RDA0000/AOA0000C244.pdf"
 
         component = [url, code, kiname, img, attach]
         return component
 
     def get_properties(self):
+        relation = {3: "SMD", 4: "额定功率 (W)", 5: "片式尺寸(长 x 宽)", 6: "电阻值 (Ohm)", 7: "电阻值容差", 8: "包装形状", 9: "电阻温度系数"}
+        td_tags = self.product_list.find_all(name="td")
         many_properties = []
-        lists = self.bs_content.find(name='table', attrs={'class': 'spec-table'}).tbody.find_all(name='tr')
-
-        for tr_tag in lists:
-            key_value = tr_tag.find_all(name='td')
-            propertyname = key_value[0].text.strip()
-            value = key_value[1].text
-            if value == '已应对':
-                value = 'YES'
+        for i, key in relation.items():
+            propertyname = key
+            value = td_tags[i].text
             properties = [propertyname, value]
             many_properties.append(properties)
         return many_properties

@@ -4,7 +4,7 @@
     @date:          2016/12/2
 """
 from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
-url = "http://www.infineon.com/cms/cn/product/power/power-mosfet/power-mosfet-bare-die/IPC313N10N3R/productType.html?productType=5546d462525dbac4015283b56e8a1cc3"
+url = "https://toshiba.semicon-storage.com/info/docget.jsp?did=3263&prodName=1SS181"
 html_analyse = HtmlAnalyse(url)
 bs_content = html_analyse.get_bs_contents()
 trs = bs_content.find_all(name="tr", attrs={"class": "table-header gradient checker-dotted"})

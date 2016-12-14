@@ -14,7 +14,7 @@ class HtmlAnalyse:
         self._session = requests.Session()
         self._session.headers.update(Default_Header)
         if is_proxy:
-            proxy_ip = {'http': '124.88.67.52:843'}
+            proxy_ip = {'http': '120.92.3.127:80'}
             self._session.proxies.update(proxy_ip)
         if is_cookie:
             with open("I:\PythonPrj\StandardSpider\Lib\\NetCrawl\Cookie.json") as f:

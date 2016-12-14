@@ -400,6 +400,8 @@ class DataProcessing:
                             properties_json.append(property_json)
                             break
                         else:
+                            if not crawl_property_value:
+                                crawl_property_value = "null"
                             pv_id = spcap_data.save_to_property(base_property_id, component_id,
                                                                 base_property_detno,
                                                                 "'" + crawl_property_value + "'",

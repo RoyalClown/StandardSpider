@@ -29,6 +29,4 @@ ST_Relation = {"1": "Part Number",                                 "4": "General
                "4762": "Security Certification",                "1454": "Supply Voltage (V)",
                "287": "Current Consumption (Icc) (A)",           "311": "Data Rate (Mb/s)",
                "890": "Number of Drivers",                       "915": "Number of Receivers",
-               "": "", "": "",
-               "": "", "": "",
                }

@@ -8,7 +8,7 @@ class UtilDataAnalyse(OracleConnection):
         self.task_id = task_id
         super().__init__()
 
-    # 获取爬去任务信息
+    # 获取爬虫任务信息
     def get_from_table(self):
         cursor = self.conn.cursor()
         cursor.execute("select * from product$component_crawl_task where cct_id={}".format(self.task_id))

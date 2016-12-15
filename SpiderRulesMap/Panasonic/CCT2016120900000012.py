@@ -1,23 +1,23 @@
 """
     @description:   来源:松下
                     商城品牌:松下
-                    目标类目:片式电阻器
-                    商城类目:通用型电阻
-                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/chip-resistors/chip-resistors/thick-film-chip-resistors?reset=1
+                    目标类目:耐硫化片式电阻器
+                    商城类目:厚膜电阻器
+                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/chip-resistors/chip-resistors/anti-sulfurated-thick-film-chip-resistors?reset=1
     @author:        RoyalClown
-    @date:          2016/12/13
+    @date:          2016/12/14
 """
 from DataAnalyse.dbDataGet.Panasonic_data import DataProcessing
-from Spider.Panasonic.ThickFilmChipResistors.saveAndGo import all_go
+from Spider.Panasonic.AntiSulfuratedThickFilmChipResistors.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016120800000021:
+class CCT2016120900000012:
     def __init__(self):
-        self.task_code = "CCT2016120800000021"
+        self.task_code = "CCT2016120900000012"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,5 +49,5 @@ class CCT2016120800000021:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016120800000021()
+    taskn = CCT2016120900000012()
     taskn.go()

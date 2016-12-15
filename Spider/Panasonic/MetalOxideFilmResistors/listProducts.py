@@ -1,7 +1,7 @@
 """
     @description:   
     @author:        RoyalClown
-    @date:          2016/12/13
+    @date:          2016/12/14
 """
 import re
 
@@ -91,7 +91,7 @@ class Detail:
         return component
 
     def get_properties(self):
-        relation = {3: "SMD", 4: "额定功率 (W)", 5: "片式尺寸(长 x 宽)", 6: "电阻值 (Ohm)", 7: "电阻值容差", 8: "包装形状", 9: "电阻温度系数"}
+        relation = {3: "SMD", 5: "额定功率 (W)", 4: "片式尺寸(长 x 宽)", 6: "电阻值 (Ohm)", 7: "电阻值容差", 8: "包装形状", 9: "电阻温度系数"}
         td_tags = self.product_list.find_all(name="td")
         many_properties = []
         for i, key in relation.items():

@@ -11,7 +11,7 @@ class PropertyValueModify:
 
     def double_with_unit(self, crawl_val):
         rough_val = crawl_val.replace(' ', '')
-        flag = re.match(r"(^-?(\+?\d+(\.\d+)?))(\D.*?)(to)?-?((\+)?(\d+(\.\d+)?))\D+$", rough_val)
+        flag = re.match(r"(^-?(\+?\d+(\.\d+)?))(\D.*?)(to)?-?～?((\+)?(\d+(\.\d+)?))\D+$", rough_val)
         # pv_min = flag.group(1)
         # pv_max = flag.group(6)
         return flag

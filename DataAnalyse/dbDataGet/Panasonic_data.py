@@ -22,7 +22,7 @@ class DataProcessing:
 
         crawl_components = spcap_data.get_all_components()
 
-        for crawl_component in crawl_components:
+        for crawl_component in crawl_components[:]:
             # 爬取获得
             crawl_component_id = crawl_component[0]
             crawl_component_attach = crawl_component[2]

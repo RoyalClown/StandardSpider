@@ -12,7 +12,7 @@ class UtilDataAnalyse(OracleConnection):
     def get_from_table(self):
         cursor = self.conn.cursor()
         cursor.execute("select * from product$component_crawl_task where cct_id={}".format(self.task_id))
-        table_data = str(cursor.fetchone()[-1])
+        table_data = str(cursor.fetchone()[-3])
         cursor.close()
         return eval(table_data)
 

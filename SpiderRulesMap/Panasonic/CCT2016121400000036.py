@@ -1,23 +1,23 @@
 """
     @description:   来源:松下
                     商城品牌:松下
-                    目标类目:金属覆膜固定电阻器（低电阻值系列）
-                    商城类目:金属膜电阻-通孔
-                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/fusing-resistors/fusing-resistors/metal-film-resistorslow-resistance-value?reset=1
+                    目标类目:电阻电路中的多连片式电阻器
+                    商城类目:电阻器网络与阵列
+                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/resistor-network-array/resistor-network-array/chip-resistor-array?reset=1
     @author:        RoyalClown
     @date:          2016/12/14
 """
 from DataAnalyse.dbDataGet.Panasonic_data import DataProcessing
-from Spider.Panasonic.MetalFilmResistorslowResistanceValue.saveAndGo import all_go
+from Spider.Panasonic.ChipResistorArray.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016120900000027:
+class CCT2016121400000036:
     def __init__(self):
-        self.task_code = "CCT2016120900000027"
+        self.task_code = "CCT2016121400000036"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,5 +49,5 @@ class CCT2016120900000027:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016120900000027()
+    taskn = CCT2016121400000036()
     taskn.go()

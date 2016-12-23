@@ -1,23 +1,23 @@
 """
-    @description:   来源:松下
-                    商城品牌:松下
-                    目标类目:金属覆膜固定电阻器（低电阻值系列）
-                    商城类目:金属膜电阻-通孔
-                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/fusing-resistors/fusing-resistors/metal-film-resistorslow-resistance-value?reset=1
+    @description:   来源:yageo
+                    商城品牌:国巨
+                    目标类目:Current sensing
+                    商城类目:电流传感电阻器-SMD
+                    来源网址:http://www.yageo.com/NewPortal/_cn/search/search-1-1.jsp
     @author:        RoyalClown
-    @date:          2016/12/14
+    @date:          2016/12/16
 """
-from DataAnalyse.dbDataGet.Panasonic_data import DataProcessing
-from Spider.Panasonic.MetalFilmResistorslowResistanceValue.saveAndGo import all_go
+from Spider.Yageo.CurrentSensing.saveAndGo import all_go
+from DataAnalyse.dbDataGet.Yageo_data import DataProcessing
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016120900000027:
+class CCT2016121200000003:
     def __init__(self):
-        self.task_code = "CCT2016120900000027"
+        self.task_code = "CCT2016121200000003"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,5 +49,5 @@ class CCT2016120900000027:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016120900000027()
+    taskn = CCT2016121200000003()
     taskn.go()

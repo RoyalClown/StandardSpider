@@ -1,23 +1,23 @@
 """
-    @description:   来源:松下
+    @description:   来源:松下官网
                     商城品牌:松下
-                    目标类目:金属覆膜固定电阻器（低电阻值系列）
-                    商城类目:金属膜电阻-通孔
-                    来源网址:https://industrial.panasonic.cn/ea/products/resistors/fusing-resistors/fusing-resistors/metal-film-resistorslow-resistance-value?reset=1
+                    目标类目:电气双层电容器 (卷回形)
+                    商城类目:超级电容器
+                    来源网址:https://industrial.panasonic.cn/ea/products/capacitors/edlc/edlc-wound-type#quicktabs-line_up_page_tab=1
     @author:        RoyalClown
-    @date:          2016/12/14
+    @date:          2016/12/15
 """
+from Spider.Panasonic.EdlcWoundType.saveAndGo import all_go
 from DataAnalyse.dbDataGet.Panasonic_data import DataProcessing
-from Spider.Panasonic.MetalFilmResistorslowResistanceValue.saveAndGo import all_go
 
 from DataAnalyse.file_download.img_download import ImgDownload
 from DataAnalyse.file_download.pdf_download import PdfDownload
 from Lib.DBConnection.OracleConnection import OracleConnection
 
 
-class CCT2016120900000027:
+class CCT2016121300000030:
     def __init__(self):
-        self.task_code = "CCT2016120900000027"
+        self.task_code = "CCT2016121300000030"
         self.task_id = self.get_task_id()
 
     def get_task_id(self):
@@ -49,5 +49,6 @@ class CCT2016120900000027:
 
 
 if __name__ == "__main__":
-    taskn = CCT2016120900000027()
+    taskn = CCT2016121300000030()
     taskn.go()
+：暂停

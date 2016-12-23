@@ -3,16 +3,18 @@
     @author:        RoyalClown
     @date:          2016/12/2
 """
-from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
-url = "https://toshiba.semicon-storage.com/info/docget.jsp?did=3263&prodName=1SS181"
-html_analyse = HtmlAnalyse(url)
-bs_content = html_analyse.get_bs_contents()
-trs = bs_content.find_all(name="tr", attrs={"class": "table-header gradient checker-dotted"})
-for tr in trs:
-    if tr.th:
-        tr.th.text.strip()
-    elif tr.td:
-        if "DS (on)" in tr.td.text:
-            print(tr.td.next_sibling.next_sibling.text.strip())
-a = "a"
+import random
 
+import requests
+
+from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
+
+url = "http://www.yageo.com/NewPortal/_cn/search/productDocs.jsp?YageoPartNumber=RV0603FR-07100KL"
+# html_analyse = HtmlAnalyse(url)
+# content = html_analyse.get_contents()
+# print(content)
+
+
+res = requests.head(url, allow_redirects=False)
+location = res.headers["Location"]
+print(location)

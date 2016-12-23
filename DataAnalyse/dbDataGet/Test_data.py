@@ -22,13 +22,13 @@ class DataProcessing:
 
         crawl_components = spcap_data.get_all_components()
 
-        for crawl_component in crawl_components:
+        for crawl_component in crawl_components[:]:
             # 爬取获得
             crawl_component_id = crawl_component[0]
             crawl_component_attach = crawl_component[2]
             crawl_component_img = crawl_component[4]
             crawl_component_url = crawl_component[13]
-            crawl_component_code = crawl_component[7].strip()
+            crawl_component_code = crawl_component[7]
             cc_flag = crawl_component[17]
             # 事先给出
 
@@ -88,84 +88,28 @@ class DataProcessing:
                     base_property_type = ''
 
                 # 参数合并
-                tmp_two_first0 = ''
-                tmp_two_second0 = ''
+                tmp_voltage_AC_DC = ''
+
+                tmp_pv_min = ''
+                tmp_pv_max = ''
 
                 for crawl_property in crawl_base_properties:
-                    crawl_property_name = crawl_property[5]
+                    crawl_property_name = crawl_property[5].replace("\n", " ").replace(" ", "")
 
-                    crawl_property_value = crawl_property[7]
+                    crawl_property_value = crawl_property[7].replace("\n", " ").replace(" ", "")
                     if not crawl_property_value:
                         continue
                     # 目标类目匹配
                     if crawl_property_name.lower().replace(" ", "") in aim_property_name.lower().replace(" ", ""):
 
 
-                        # 储存为范围值
-                        # 获取最小值
-                        if crawl_property_name == "Die Size (X)":
-                            tmp_two_first0 = crawl_property_value.replace("mm", "").strip()
-                            continue
-                        # 获取最大值
-                        elif crawl_property_name == "Die Size (Y)":
-                            tmp_two_second0 = crawl_property_value.replace("mm", "").strip()
-                            if tmp_two_first0 != '':
-                                pv_min = tmp_two_first0
-                                pv_max = tmp_two_second0
-                                save_value = pv_min + "mm*" + pv_max + "mm"
-                                pv_id = spcap_data.save_to_property(base_property_id, component_id,
-                                                                    base_property_detno,
-                                                                    "'" + save_value + "'", pv_max=pv_max,
-                                                                    pv_min=pv_min,
-                                                                    pv_unit="'" + base_property_unit + "'")
-                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
-                                                                             base_property_id,
-                                                                             base_property_name, save_value,
-                                                                             min=pv_min, max=pv_max,
-                                                                             unit=base_property_unit)
-                                properties_json.append(property_json)
-                                break
-                            else:
-                                continue
-                        if crawl_property_name == 'Operating Temperature min':
-                            try:
-                                flag = property_value_modify.double_with_unit(crawl_property_value)
-                                pv_min = flag.group(1)
-                                save_value = pv_min + base_property_unit
-                                pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
-                                                                    "'" + save_value + "'",
-                                                                    pv_min=pv_min,
-                                                                    pv_unit="'" + base_property_unit + "'")
-                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
-                                                                             base_property_id,
-                                                                             base_property_name, save_value,
-                                                                             min=pv_min,
-                                                                             unit=base_property_unit)
-                                properties_json.append(property_json)
-                                break
-                            except:
-                                continue
-
                         """ 这里还需要对不同属性值进行处理 """
                         # F类型
                         if base_property_type == 'F':
                             # 尝试解析成min、max
                             flag = property_value_modify.double_without_unit(crawl_property_value)
-                            flag1 = property_value_modify.double_with_unit(crawl_property_value)
                             if flag:
                                 pv_min, pv_max = flag.group(1), flag.group(2)
-                                save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
-                                pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
-                                                                    "'" + save_value + "'", pv_max=pv_max,
-                                                                    pv_min=pv_min,
-                                                                    pv_unit="'" + base_property_unit + "'")
-                                property_json = spcap_data.get_property_json(base_property_detno, pv_id,
-                                                                             base_property_id,
-                                                                             base_property_name, save_value,
-                                                                             min=pv_min, max=pv_max,
-                                                                             unit=base_property_unit)
-                            elif flag1:
-                                pv_min, pv_max = flag1.group(1), flag1.group(6)
                                 save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
                                                                     "'" + save_value + "'", pv_max=pv_max,
@@ -230,12 +174,12 @@ class DataProcessing:
 
                                 pv_id = spcap_data.save_to_property(base_property_id, component_id, base_property_detno,
                                                                     "'" + save_value + "'",
-                                                                    pv_min=crawl_property_value,
+                                                                    pv_numberic=crawl_property_value,
                                                                     pv_unit="'" + base_property_unit + "'")
                                 property_json = spcap_data.get_property_json(base_property_detno, pv_id,
                                                                              base_property_id,
                                                                              base_property_name, save_value,
-                                                                             min=crawl_property_value,
+                                                                             numberic=crawl_property_value,
                                                                              unit=base_property_unit)
                             except:
                                 # N类型数值加单位

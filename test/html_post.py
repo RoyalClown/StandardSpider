@@ -25,7 +25,15 @@ session.headers.update({
     'Upgrade-Insecure-Requests': '1'
 })
 url = "http://device.panasonic.cn/ac/c/control/sensor/human/wl/number/index.jsp?c=move"
-url2 = "http://device.panasonic.cn/ac/c/control/sensor/human/wl/number/index.jsp?c=search"
-session.get(url2)
-content = session.post(url, data=form).text
+url2 = "http://ds.yuden.co.jp/TYCOMPAS/cs/detail.do?mode=download&fileName=E-HTQ_e.pdf"
+download_forms = {'action': "detail.do",
+                  'classificationId': "AE",
+                  'fileName': "E-HTQ_e.pdf",
+                  'isSeriesData': True,
+                  'isProductsData': False,
+                  'isProductsDataGraph': False
+                  }
+
+res = requests.post(url2, data=download_forms)
+content = res.text
 print(content)

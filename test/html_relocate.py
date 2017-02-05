@@ -3,18 +3,18 @@
     @author:        RoyalClown
     @date:          2016/12/2
 """
-import random
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-import requests
+dcap = dict(DesiredCapabilities.PHANTOMJS)
+dcap["phantomjs.page.settings.userAgent"] = (
+    "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.23 Mobile Safari/537.36"
+)
 
-from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
+driver = webdriver.PhantomJS(desired_capabilities=dcap)
 
-url = "http://www.yageo.com/NewPortal/_cn/search/productDocs.jsp?YageoPartNumber=RV0603FR-07100KL"
-# html_analyse = HtmlAnalyse(url)
-# content = html_analyse.get_contents()
-# print(content)
+driver.get("http://m.iqiyi.com/v_19rrmmdbkg.html")
 
+driver.get_screenshot_as_file('01.png')
 
-res = requests.head(url, allow_redirects=False)
-location = res.headers["Location"]
-print(location)
+driver.quit()

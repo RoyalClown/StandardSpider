@@ -3,19 +3,20 @@ import json
 from selenium import webdriver
 import requests
 from bs4 import BeautifulSoup
+from selenium.webdriver import DesiredCapabilities
 
 from Lib.NetCrawl.Constant import Default_Header
-from Lib.NetCrawl.Proxy import Proxy
 
 
 class HtmlAnalyse:
-    def __init__(self, url, is_proxy=False, is_cookie=False):
+    def __init__(self, url, proxy=None, is_cookie=False):
         self.url = url
         self._session = requests.Session()
         self._session.headers.update(Default_Header)
-        if is_proxy:
-            proxy_ip = {'http': '120.92.3.127:80'}
-            self._session.proxies.update(proxy_ip)
+        if proxy:
+            self._session.proxies.update(proxy)
+
+
         if is_cookie:
             with open("I:\PythonPrj\StandardSpider\Lib\\NetCrawl\Cookie.json") as f:
                 cookies = f.read()
@@ -25,17 +26,21 @@ class HtmlAnalyse:
 
     # 获得页面内容
     def get_contents(self):
-        try:
-            contents = self._session.get(self.url).text
+        res = self._session.get(self.url, timeout=30)
+        if res.status_code == 200:
+            contents = res.text
             return contents
-        except Exception as e:
-            print(e)
-            self.get_contents()
+        else:
+            print("网页状态码：%d" % res.status_code)
+            return None
 
     # 模拟浏览器获得内容
     def get_selenium_contents(self):
+        dcap = dict(DesiredCapabilities.PHANTOMJS)
+        dcap["phantomjs.page.settings.userAgent"]=("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.101 Safari/537.36")
+
         driver = webdriver.PhantomJS(
-            executable_path='C:\\Users\\RoyalClown\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe')
+            executable_path='C:\\Users\\RoyalClown\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe', desired_capabilities=dcap)
         try:
             driver.get(self.url)
             contents = driver.page_source
@@ -47,7 +52,7 @@ class HtmlAnalyse:
 
     # 获得bs对象
     def get_bs_contents(self):
-        bs_contents = BeautifulSoup(self.get_contents(), "html.parser")
+        bs_contents = BeautifulSoup(self.get_contents(), "lxml")
         return bs_contents
 
     # 模拟浏览器获得bs对象
@@ -69,7 +74,14 @@ class HtmlAnalyse:
 
     # 下载文件
     def download(self, path):
-        res = self._session.get(self.url, stream=True)
+        res = self._session.get(self.url, stream=True, timeout=30)
+        if not res.content:
+            self.download(path)
+        with open(path, 'wb') as f:
+            f.write(res.content)
+
+    def post_download(self, path, data):
+        res = self._session.post(self.url, data=data, stream=True, timeout=30)
         with open(path, 'wb') as f:
             f.write(res.content)
 
@@ -79,5 +91,7 @@ class HtmlAnalyse:
 
 
 if __name__ == "__main__":
-    html_analyse = HtmlAnalyse("http://www.atmel.com/zh/cn/Images/Atmel-8700-SEEPROM-AT24C01C-02C-Datasheet.pdf")
-    html_analyse.download('a.pdf')
+    while True:
+        html_analyse = HtmlAnalyse("http://www.digikey.com.cn/search/zh?site=cn&lang=zh")
+        bs_content = html_analyse.get_bs_contents()
+        print(bs_content)

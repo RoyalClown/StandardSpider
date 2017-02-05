@@ -13,13 +13,13 @@ class ThreadingPool:
         pass
 
     def multi_process(self, fun, lists):
-        pool = Pool()
+        pool = Pool(4)
         pool.map(fun, lists)
         pool.close()
         pool.join()
 
     def multi_thread(self, fun, lists):
-        pool = ThreadPool(2)
+        pool = ThreadPool(4)
         pool.map(fun, lists)
         pool.close()
         pool.join()

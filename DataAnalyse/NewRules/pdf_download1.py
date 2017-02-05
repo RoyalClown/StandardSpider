@@ -10,14 +10,14 @@ from Lib.NetCrawl.HtmlAnalyse import HtmlAnalyse
 from Lib.NetCrawl.Proxy_Pool import ProxyPool
 
 
-class PdfDownload:
+class PdfDownload1:
     def __init__(self, task_code):
         self.task_code = task_code
 
         self.proxy_pool = ProxyPool()
         self.proxy_ip = self.proxy_pool.get()
 
-        self.path = "..\\tmp\\"
+        self.path = "D:\pdf\\"
         if not os.path.exists(self.path):
             os.mkdir(self.path)
         self.db = OracleConnection()
@@ -47,9 +47,23 @@ class PdfDownload:
         return pdf_urls
 
     def download(self, pdf_url):
+        content_list = re.match(r'downloadLinkClick\((.*?)\);return false', a).group(1).split(",")
+        filename = content_list[0].replace("'", "")
+
+        url = "http://ds.yuden.co.jp/TYCOMPAS/cs/detail.do?mode=download&fileName=" + filename
+
+        isSeriesData = content_list[1]
+        isProductsData = content_list[2]
+        isProductsDataGraph = content_list[3]
+        DownloadForm = {"action": "detail.do", "classificationID": "AE", "fileName": filename,
+                        "isSeriesData": isSeriesData,
+                        "isProductsData": isProductsData, "isProductsDataGraph": isProductsDataGraph}
+        html_analyse = HtmlAnalyse(url)
+        html_analyse.post_download(data=DownloadForm, path="I:\PythonPrj\StandardSpider\DataAnalyse\\NewRules\\a.pdf")
+
         filename = self.path + str(random.random()) + '.pdf'
         try:
-            html_analyse = HtmlAnalyse(pdf_url, proxy=self.proxy_ip)
+            html_analyse = HtmlAnalyse(url, proxy=self.proxy_ip)
             html_analyse.download(filename)
             print("下载完成。。。")
         except Exception as e:
@@ -97,6 +111,21 @@ class PdfDownload:
 
 
 if __name__ == "__main__":
-    pdfdownload = PdfDownload(task_code="CCT2017011800000035")
+    # pdfdownload = PdfDownload(task_code="CCT2016120900000001")
+    #
+    # pdfdownload.go()
 
-    pdfdownload.thread_go()
+
+    a = "downloadLinkClick('E-HTQ_e.pdf',true,false,false);return false"
+    content_list = re.match(r'downloadLinkClick\((.*?)\);return false', a).group(1).split(",")
+    filename = content_list[0].replace("'", "")
+
+    url = "http://ds.yuden.co.jp/TYCOMPAS/cs/detail.do?mode=download&fileName=" + filename
+
+    isSeriesData = content_list[1]
+    isProductsData = content_list[2]
+    isProductsDataGraph = content_list[3]
+    DownloadForm = {"action": "detail.do", "classificationID": "AE", "fileName": filename, "isSeriesData": isSeriesData,
+                    "isProductsData": isProductsData, "isProductsDataGraph": isProductsDataGraph}
+    html_analyse = HtmlAnalyse(url)
+    html_analyse.post_download(data=DownloadForm, path="I:\PythonPrj\StandardSpider\DataAnalyse\\NewRules\\a.pdf")

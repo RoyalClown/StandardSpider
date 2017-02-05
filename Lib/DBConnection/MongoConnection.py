@@ -5,15 +5,15 @@ from Lib.DBConnection.Constant import Mongo_Url
 
 
 class MongoConnection:
-    def __init__(self, data=None):
+    def __init__(self):
         conn = MongoClient(*Mongo_Url)
-        self.db = conn.local
-        self.col = self.db.product
-        self.data = data
+        self.db = conn.spider
+        # self.col = self.db.Company_Info
+        self.col = self.db.Company_Info_Test
 
-    def db_create(self):
-        print(self.data)
-        self.col.insert(self.data)
+    def db_create(self, data):
+        print(data)
+        self.col.insert(data)
         return
 
     def db_retrieve_all(self):
@@ -23,23 +23,23 @@ class MongoConnection:
         except:
             print("查询全部数据失败")
 
-    def db_retrieve(self):
+    def db_retrieve(self, data):
         try:
-            data = self.col.find(self.data)
+            data = self.col.find(data)
             return data
         except:
             print("查询数据失败")
 
-    def db_update(self, new_data):
+    def db_update(self, data, new_data):
         try:
-            self.col.update({self.data}, {'$set': {new_data}})
+            self.col.update({data}, {'$set': {new_data}})
         except:
             print("更新数据失败")
         return new_data
 
-    def db_delete(self):
+    def db_delete(self, data):
         try:
-            self.col.remove({self.data})
+            self.col.remove({data})
         except:
             print("删除数据失败")
 
@@ -47,7 +47,7 @@ class MongoConnection:
 
 
 if __name__ == "__main__":
-    connection = MongoConnection({"label": "TECHCODE"})
+    connection = MongoConnection()
     data_list = connection.db_retrieve()
     for i in data_list:
         time.sleep(0.01)

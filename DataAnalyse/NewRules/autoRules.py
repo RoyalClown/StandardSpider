@@ -193,7 +193,7 @@ class DataProcessing:
                 #
             else:
                 insert_or_update = 1
-                uuid = component[28]
+                uuid = component[-1]
                 cmp_old_version = component[21]
                 if cmp_old_version is None:
                     cmp_version = 1
@@ -242,7 +242,7 @@ class DataProcessing:
                 pvc_unit = crawl_property[6]
                 try:
                     base_property_unit_list = pvc_unit.split(",")
-                    base_property_unit = base_property_unit_list[0]
+
                 except:
                     base_property_unit_list = ""
                     base_property_unit = ''
@@ -253,11 +253,16 @@ class DataProcessing:
                 type = crawl_property[10]
                 if not crawl_property_value:
                     continue
+                else:
+                    original_crawl_property_value = crawl_property_value
+                    crawl_property_value = crawl_property_value.replace(" ", "").strip()
 
                 flag = ''
                 if len(base_property_unit_list) == 1:
+                    base_property_unit = base_property_unit_list[0]
                     if type == 'F':
                         flag = property_value_modify.double_without_unit(crawl_property_value)
+                        flag1 = property_value_modify.single_without_unit(crawl_property_value)
                         if flag:
                             pv_min, pv_max = flag.group(1), flag.group(4)
                             save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
@@ -265,10 +270,17 @@ class DataProcessing:
                                                                 "'" + save_value + "'", pv_max=pv_max,
                                                                 pv_min=pv_min,
                                                                 pv_unit="'" + base_property_unit + "'")
+                        elif flag1:
+                            flag = flag1
+                            pv_min = flag.group(8)
+                            save_value = crawl_property_value + base_property_unit
+                            pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
+                                                                "'" + save_value + "'", pv_min=pv_min,
+                                                                pv_unit="'" + base_property_unit + "'")
                     elif type == 'N':
                         flag = property_value_modify.single_without_unit(crawl_property_value)
                         if flag:
-                            numberic = flag.group(1)
+                            numberic = flag.group(8)
                             save_value = crawl_property_value + base_property_unit
 
                             pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
@@ -279,19 +291,27 @@ class DataProcessing:
                 elif len(base_property_unit_list) > 1:
                     if type == 'F':
                         flag = property_value_modify.double_with_unit(crawl_property_value)
+                        flag1 = property_value_modify.single_with_unit(crawl_property_value)
                         if flag:
-                            pv_min, pv_max, base_property_unit = flag.group(1), flag.group(5), flag.group(4)
+                            pv_min, pv_max, base_property_unit = flag.group(1), flag.group(6), flag.group(4)
                             save_value = pv_min + base_property_unit + '~' + pv_max + base_property_unit
                             pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
                                                                 "'" + save_value + "'", pv_max=pv_max,
                                                                 pv_min=pv_min,
                                                                 pv_unit="'" + base_property_unit + "'")
+                        elif flag1:
+                            flag = flag1
+                            pv_min, base_property_unit = flag.group(8), flag.group(12)
+                            save_value = pv_min + base_property_unit
+                            pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
+                                                                "'" + save_value + "'",
+                                                                pv_min=pv_min)
 
                     elif type == 'N':
                         flag = property_value_modify.single_with_unit(crawl_property_value)
                         if flag:
-                            numberic, base_property_unit = flag.group(1), flag.group(4)
-                            save_value = crawl_property_value + base_property_unit
+                            numberic, base_property_unit = flag.group(8), flag.group(12)
+                            save_value = numberic + base_property_unit
 
                             pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
                                                                 "'" + save_value + "'",
@@ -300,23 +320,34 @@ class DataProcessing:
                 else:
                     if type == 'F':
                         flag = property_value_modify.double_without_unit(crawl_property_value)
-                        pv_min, pv_max = flag.group(1), flag.group(4)
-                        save_value = pv_min + '~' + pv_max
-                        pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
-                                                            "'" + save_value + "'", pv_max=pv_max,
-                                                            pv_min=pv_min)
+                        flag1 = property_value_modify.single_without_unit(crawl_property_value)
+                        if flag:
+                            pv_min, pv_max = flag.group(1), flag.group(4)
+                            save_value = pv_min + '~' + pv_max
+                            pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
+                                                                "'" + save_value + "'", pv_max=pv_max,
+                                                                pv_min=pv_min)
+                        elif flag1:
+                            flag = flag1
+                            pv_min = flag.group(8)
+                            save_value = crawl_property_value
+                            pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
+                                                                "'" + save_value + "'",
+                                                                pv_min=pv_min)
+
                     elif type == 'N':
                         flag = property_value_modify.single_without_unit(crawl_property_value)
-                        numberic = flag.group(1)
-                        save_value = crawl_property_value
+                        if flag:
+                            numberic = flag.group(8)
+                            save_value = crawl_property_value
 
-                        pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
-                                                            "'" + save_value + "'",
-                                                            pv_numberic=numberic)
+                            pv_id = spcap_data.save_to_property(pvc_propertyid, component_id, pvc_detno,
+                                                                "'" + save_value + "'",
+                                                                pv_numberic=numberic)
                 if not flag:
                     pv_id = spcap_data.save_to_property(pvc_propertyid, component_id,
                                                         pvc_detno,
-                                                        "'" + crawl_property_value + "'",
+                                                        "'" + original_crawl_property_value + "'",
                                                         pv_unit="'" + base_property_unit + "'",
                                                         pv_flag=10)
 
@@ -329,5 +360,5 @@ class DataProcessing:
 
 
 if __name__ == "__main__":
-    main = DataProcessing("cct")
+    main = DataProcessing("CCT2017011800000035")
     main.go()
